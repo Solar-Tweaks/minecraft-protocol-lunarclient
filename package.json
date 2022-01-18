@@ -1,0 +1,29 @@
+{
+  "name": "minecraft-protocol-lunarclient",
+  "version": "1.0.0",
+  "description": "Custom packets used by Lunar Client for node-minecraft-protocol",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Solar-Tweaks/node-minecraft-protocol-lunarclient.git"
+  },
+  "keywords": [
+    "minecraft-protocol",
+    "lunarclient"
+  ],
+  "author": "Beanes",
+  "contributors": [
+    "RichardDorian"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Solar-Tweaks/node-minecraft-protocol-lunarclient/issues"
+  },
+  "homepage": "https://github.com/Solar-Tweaks/node-minecraft-protocol-lunarclient#readme",
+  "dependencies": {
+    "minecraft-protocol": "^1.30.0"
+  }
+}
