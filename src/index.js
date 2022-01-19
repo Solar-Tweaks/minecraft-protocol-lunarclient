@@ -74,7 +74,7 @@ module.exports = {
    */
   channel: 'lunarclient:pm',
   /**
-   * Register the Lunar Client protocol to the given client.
+   * Register the Lunar Client protocol to the given client
    *
    * See full protocol on their [GitHub repository](https://github.com/LunarClient/BukkitAPI-NetHandler)
    * @example registerClient(client);
@@ -83,11 +83,11 @@ module.exports = {
    * @returns {void}
    */
   registerClient: (client, altChannel = false) => {
-    const channel = altChannel ? 'Lunar-Client' : 'lunarclient:pm';
+    const channelName = altChannel ? 'Lunar-Client' : channel;
     client.write('custom_payload', {
       channel: 'REGISTER',
-      data: Buffer.from(channel, 'utf8'),
+      data: Buffer.from(channelName, 'utf8'),
     });
-    client.registerChannel(channel, scheme);
+    client.registerChannel(channelName, scheme);
   },
 };
