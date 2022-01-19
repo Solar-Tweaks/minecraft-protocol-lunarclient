@@ -1,5 +1,5 @@
 # minecraft-protocol-lunarclient
-![GitHub package.json version](https://img.shields.io/github/package-json/v/Solar-tweaks/node-minecraft-protocol-lunarclient?style=for-the-badge)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/Solar-tweaks/minecraft-protocol-lunarclient?style=for-the-badge)
 
 Custom packets used by Lunar Client for node-minecraft-protocol
 
