@@ -56,6 +56,8 @@ const scheme = [
   ],
 ];
 
+const channel = 'lunarclient:pm';
+
 // const util = require('util');
 // console.log(
 //   util.inspect(scheme1, { showHidden: false, depth: null, colors: true })
@@ -72,7 +74,7 @@ module.exports = {
    * The client also use `Lunar-Client` you can choose between the two (`lunarclient:pm` is used by the [official Bukkit plugin](https://github.com/LunarClient/BukkitAPI))
    * @type string
    */
-  channel: 'lunarclient:pm',
+  channel,
   /**
    * Register the Lunar Client protocol to the given client
    *
