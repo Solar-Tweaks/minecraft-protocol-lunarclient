@@ -14,14 +14,16 @@ module.exports = [
           fields: {
             0: [
               'container',
-              {
-                name: 'text',
-                type: 'string',
-              },
-              {
-                name: 'health',
-                type: 'f32',
-              },
+              [
+                {
+                  name: 'text',
+                  type: 'string',
+                },
+                {
+                  name: 'health',
+                  type: 'f32',
+                },
+              ],
             ],
           },
           default: 'void',
