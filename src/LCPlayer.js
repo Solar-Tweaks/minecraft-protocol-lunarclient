@@ -73,6 +73,11 @@ class LCPlayer {
     return true;
   }
 
+  removeAllTeammates() {
+    this.teammates = [];
+    this.#sendTeammateList();
+  }
+
   #sendTeammateList() {
     const players = [];
     this.teammates.forEach((uuid) => {

@@ -11,10 +11,7 @@ export declare class LCPlayer {
    * @param client Node Minecraft Protocol Client
    * @param channel LC Plugin Channel to use
    */
-  constructor(
-    client: Client,
-    channel: 'lunarclient:pm' | 'Lunar-Client' = 'lunarclient:pm'
-  );
+  constructor(client: Client, channel?: 'lunarclient:pm' | 'Lunar-Client');
 
   /**
    * Node Minecraft Protocol Client
@@ -60,7 +57,7 @@ export declare class LCPlayer {
   sendNotification(
     message: string,
     durationMs: number,
-    level: 'error' | 'info' | 'success' | 'warning' = 'info'
+    level?: 'error' | 'info' | 'success' | 'warning'
   ): void;
   /**
    * Add a teammate to the client. The TeamView mod must be enabled for this to work.
@@ -74,6 +71,10 @@ export declare class LCPlayer {
    * @returns True if successful
    */
   removeTeammate(uuid: string): boolean;
+  /**
+   * Remove all teammates from the client. The TeamView mod must be enabled for this to work.
+   */
+  removeAllTeammates(): void;
 }
 
 /**
