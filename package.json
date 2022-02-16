@@ -1,10 +1,10 @@
 {
   "name": "@solar-tweaks/minecraft-protocol-lunarclient",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Custom packets used by Lunar Client for node-minecraft-protocol",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./test/proxy.js"
   },
   "repository": {
     "type": "git",
@@ -28,5 +28,8 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
+  },
+  "devDependencies": {
+    "prismarine-proxy": "^1.1.1"
   }
 }
