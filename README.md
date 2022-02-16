@@ -5,29 +5,35 @@ Custom packets used by Lunar Client for node-minecraft-protocol
 
 # Usage 🛠️
 ```js
-const lunarclient = require('minecraft-protocol-lunarclient');
+const { LCPlayer, WaypointColor } = require('minecraft-protocol-lunarclient');
 
-/* Register the channel for the Minecraft Client */
-lunarclient.registerClient(client);
+// Instantiate the Lunar Client Player
+// Using the node-minecraft-protocol client
+const player = new LCPlayer(client);
 
-/**
- * Send a LC Packet to the Minecraft Client
- * For the channel name if you chose `Lunar-Client` put that one of course instead of `lunarclient:pm`
-*/
-client.writeChannel('lunarclient:pm', {
-  // Packet to send
-  id: 'teammates',
-
-  // Content of the packet
-  leader: '827f8c48-cdb2-4105-af39-df5a64f93490',
-  lastMs: 25,
-  players: [
-    {
-      player: 'd204eee2-9224-4046-9e98-4da572fe2c4b',
-      posMap: []
-    }
-  ]
+// Adding a waypoint to the player
+player.addWaypoint({
+  name: 'Spawn',
+  color: WaypointColor.PINK,
+  x: 0,
+  y: 64,
+  z: 0,
+  forced: false,
+  visible: true,
 });
+
+// Removing the waypoint
+player.removeWaypoint('Spawn');
+
+// Sending a notification with "Hello World!" as text for a duration of 5 000ms and as a warning
+player.sendNotification('Hello World!', 5000, 'warning');
+
+// Adding teammates
+player.addTeammate('827f8c48-cdb2-4105-af39-df5a64f93490');
+player.addTeammate('64fb990d-5c85-43cd-a3b1-98a44b385493');
+
+// Removing teammates
+player.removeTeammate('64fb990d-5c85-43cd-a3b1-98a44b385493');
 ```
 
 # Authors 💖
