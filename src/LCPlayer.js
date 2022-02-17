@@ -6,6 +6,7 @@ class LCPlayer {
     this.channel = channel;
     this.waypoints = [];
     this.teammates = [];
+    this.cooldowns = [];
 
     this.client.write('custom_payload', {
       channel: 'REGISTER',
@@ -96,6 +97,33 @@ class LCPlayer {
       lastMs: 0,
       players,
     });
+  }
+
+  addCooldown(id, durationMs, iconId) {
+    if (this.cooldowns.find((c) => c === id)) return false;
+    this.cooldowns.push(id);
+    setTimeout(() => {
+      this.cooldowns = this.cooldowns.filter((c) => c !== id);
+    }, durationMs);
+    this.client.writeChannel(this.channel, {
+      id: 'cooldown',
+      message: id,
+      durationMs,
+      iconId,
+    });
+    return true;
+  }
+
+  removeCooldown(id) {
+    if (!this.cooldowns.find((c) => c === id)) return false;
+    this.cooldowns = this.cooldowns.filter((c) => c !== id);
+    this.client.writeChannel(this.channel, {
+      id: 'cooldown',
+      message: id,
+      durationMs: 0,
+      iconId: 0,
+    });
+    return true;
   }
 }
 

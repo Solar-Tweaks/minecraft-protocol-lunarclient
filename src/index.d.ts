@@ -1,13 +1,13 @@
 import { Client } from 'minecraft-protocol';
 
 /**
- * The protocol scheme used by [`protodef`](https://www.npmjs.com/package/protodef) to define the protocol between the client and the server
+ * The protocol scheme used by [`protodef`](https://www.npmjs.com/package/protodef) to define the protocol between the client and the server.
  */
 export declare const scheme: { [key: string]: any };
 
 export declare class LCPlayer {
   /**
-   * Creates a new LunarClient player
+   * Creates a new LunarClient player.
    * @param client Node Minecraft Protocol Client
    * @param channel LC Plugin Channel to use
    */
@@ -15,14 +15,12 @@ export declare class LCPlayer {
 
   /**
    * Node Minecraft Protocol Client
-   * @readonly
    */
-  client: Client;
+  readonly client: Client;
   /**
    * Plugin channel used
-   * @readonly
    */
-  channel: 'lunarclient:pm' | 'Lunar-Client';
+  readonly channel: 'lunarclient:pm' | 'Lunar-Client';
   /**
    * Waypoints loaded by the client
    */
@@ -31,15 +29,19 @@ export declare class LCPlayer {
    * Current teammates of the client (Array of UUIDs)
    */
   teammates: string[];
+  /**
+   * Current active cooldowns (Array of ids, strings)
+   */
+  cooldowns: string[];
 
   /**
-   * Add a waypoint to the client
+   * Add a waypoint to the client.
    * @param waypoint Waypoint to add
    * @returns True if successful
    */
   addWaypoint(waypoint: Waypoint): boolean;
   /**
-   * Remove a waypoint from the client
+   * Remove a waypoint from the client.
    * @param waypoint Waypoint object or waypoint name
    * @returns True if successful
    */
@@ -75,7 +77,30 @@ export declare class LCPlayer {
    * Remove all teammates from the client. The TeamView mod must be enabled for this to work.
    */
   removeAllTeammates(): void;
+  /**
+   * Add a cooldown to the client.
+   * @deprecated Protodef is not able to serialize the packet for some reason
+   * @param id String id of the cooldown, used to remove it later
+   * @param durationMs Duration of the message in milliseconds
+   * @param iconId Icon id to use, same system as [minecraft ids](https://minecraft-ids.grahamedgecombe.com/)
+   * @returns True if successful
+   */
+  addCooldown(id: string, durationMs: number, iconId: number): boolean;
+  /**
+   * Remove a cooldown from the client.
+   * @deprecated Protodef is not able to serialize the packet for some reason
+   * @param id String id of the cooldown
+   * @returns True if successful
+   */
+  removeCooldown(id: string): boolean;
 }
+
+/**
+ * Converts a hexadecimal color to a number that can be used as a color (waypoint color for example)
+ * @param color Hexadecimal representation of the color (works with and without a # at the beginning)
+ * @returns The number to use or `NaN` if the provided hexadecimal color code is invalid
+ */
+export declare function convertHexColor(color: string): number;
 
 /**
  * Some colors that can be used as a waypoint color

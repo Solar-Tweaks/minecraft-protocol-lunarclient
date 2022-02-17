@@ -32,8 +32,16 @@ player.sendNotification('Hello World!', 5000, 'warning');
 player.addTeammate('827f8c48-cdb2-4105-af39-df5a64f93490');
 player.addTeammate('64fb990d-5c85-43cd-a3b1-98a44b385493');
 
-// Removing teammates
+// Removing a teammate
 player.removeTeammate('64fb990d-5c85-43cd-a3b1-98a44b385493');
+```
+
+# Protodef is telling me something is wrong ⚠️
+You have to disable scheme validation in order to use this library. This is a bug inside the Protodef library.
+To disable the scheme validation navigate to `src/client/pluginChannels.js` (inside the `minecraft-protocol` library) and at the line **8** add a false to the `Protodef` constructor like so:
+```diff
+- const proto = new ProtoDef()
++ const proto = new ProtoDef(false)
 ```
 
 # Authors 💖
