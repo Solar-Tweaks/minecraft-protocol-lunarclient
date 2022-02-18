@@ -93,6 +93,20 @@ export declare class LCPlayer {
    * @returns True if successful
    */
   removeCooldown(id: string): boolean;
+  /**
+   * Add a cooldown to the client. (The packet is built manually by the library, this should not be used for production, it's a temporary replacement)
+   * @param id String id of the cooldown, used to remove it later
+   * @param durationMs Duration of the message in milliseconds
+   * @param iconId Icon id to use, same system as [minecraft ids](https://minecraft-ids.grahamedgecombe.com/)
+   * @returns True if successful
+   */
+  addCooldownManual(id: string, durationMs: number, iconId: number): boolean;
+  /**
+   * Remove a cooldown from the client. (The packet is built manually by the library, this should not be used for production, it's a temporary replacement)
+   * @param id String id of the cooldown
+   * @returns True if successful
+   */
+  removeCooldownManual(id: string): boolean;
 }
 
 /**

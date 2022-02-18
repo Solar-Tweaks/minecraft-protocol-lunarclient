@@ -24,4 +24,9 @@ proxy.on('outgoing', (data, meta, toClient, toServer) => {
 
 proxy.on('start', (client) => {
   const player = new LCPlayer(client);
+  player.addCooldownManual('bow', 9000, 261);
+  player.addCooldownManual('pearl', 16000, 368);
+  setTimeout(() => {
+    player.removeCooldownManual('pearl');
+  }, 1500);
 });

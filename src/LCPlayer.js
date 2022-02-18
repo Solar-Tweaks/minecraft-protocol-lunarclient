@@ -1,3 +1,4 @@
+const varint = require('varint');
 const scheme = require('./scheme');
 
 class LCPlayer {
@@ -124,6 +125,43 @@ class LCPlayer {
       iconId: 0,
     });
     return true;
+  }
+
+  addCooldownManual(id, durationMs, iconId) {
+    if (this.cooldowns.find((c) => c === id)) return false;
+    this.cooldowns.push(id);
+    setTimeout(() => {
+      this.cooldowns = this.cooldowns.filter((c) => c !== id);
+    }, durationMs);
+    this.client.write('custom_payload', {
+      channel: this.channel,
+      data: this.#buildCooldownPacket(id, durationMs, iconId),
+    });
+    return true;
+  }
+
+  removeCooldownManual(id) {
+    if (!this.cooldowns.find((c) => c === id)) return false;
+    this.cooldowns = this.cooldowns.filter((c) => c !== id);
+    this.client.write('custom_payload', {
+      channel: this.channel,
+      data: this.#buildCooldownPacket(id, 0, 0),
+    });
+    return true;
+  }
+
+  #buildCooldownPacket(id, durationMs, iconId) {
+    const packet = Buffer.alloc(14 + id.length);
+    packet.write('03', 'hex');
+    varint.encode(id.length, packet, 1);
+    packet.write(id, 2);
+    let durationMsHex = durationMs.toString(16);
+    for (let index = 0; index < 4 - durationMsHex.length; index++) {
+      durationMsHex = '0' + durationMsHex;
+    }
+    packet.write(durationMsHex, 8 + id.length, 'hex');
+    packet.write('0' + iconId.toString(16), 12 + id.length, 'hex');
+    return packet;
   }
 }
 
