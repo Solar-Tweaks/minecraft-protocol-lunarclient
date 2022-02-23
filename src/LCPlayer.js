@@ -163,7 +163,19 @@ class LCPlayer {
     packet.write('0' + iconId.toString(16), 12 + id.length, 'hex');
     return packet;
   }
+
+  setStaffModeState(mod, state) {
+    this.client.writeChannel(this.channel, {
+      id: 'staff_mods',
+      mod,
+      state,
+    });
+  }
 }
+
+const StaffMod = {
+  XRAY: 'XRAY',
+};
 
 const WaypointColor = {
   RED: 0xff0000,
@@ -178,5 +190,6 @@ const WaypointColor = {
 
 module.exports = {
   LCPlayer,
+  StaffMod,
   WaypointColor,
 };

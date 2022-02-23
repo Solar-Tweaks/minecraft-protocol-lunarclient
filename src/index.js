@@ -1,5 +1,5 @@
 const scheme = require('./scheme');
-const { LCPlayer, WaypointColor } = require('./LCPlayer');
+const { LCPlayer, StaffMod, WaypointColor } = require('./LCPlayer');
 
 // Utility functions
 const convertHexColor = require('./utils/convertHexColor');
@@ -12,6 +12,7 @@ const convertHexColor = require('./utils/convertHexColor');
 module.exports = {
   scheme,
   LCPlayer,
+  StaffMod,
   WaypointColor,
   convertHexColor,
 };

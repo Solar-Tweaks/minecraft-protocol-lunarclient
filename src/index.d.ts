@@ -107,6 +107,12 @@ export declare class LCPlayer {
    * @returns True if successful
    */
   removeCooldownManual(id: string): boolean;
+  /**
+   * Set the state of the given Staff Mod for the client.
+   * @param mod Staff mod to apply the state to
+   * @param state State to apply
+   */
+  setStaffModeState(mod: StaffMod, state: boolean): void;
 }
 
 /**
@@ -115,6 +121,13 @@ export declare class LCPlayer {
  * @returns The number to use or `NaN` if the provided hexadecimal color code is invalid
  */
 export declare function convertHexColor(color: string): number;
+
+/**
+ * List of all the known staff mods
+ */
+export declare enum StaffMod {
+  XRAY = 'XRAY',
+}
 
 /**
  * Some colors that can be used as a waypoint color

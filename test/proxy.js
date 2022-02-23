@@ -1,5 +1,5 @@
 const { InstantConnectProxy } = require('prismarine-proxy');
-const { LCPlayer, convertHexColor } = require('../src');
+const { LCPlayer, convertHexColor, StaffMod } = require('../src');
 
 const proxy = new InstantConnectProxy({
   loginHandler: (client) => {
@@ -26,6 +26,7 @@ proxy.on('start', (client) => {
   const player = new LCPlayer(client);
   player.addCooldownManual('bow', 9000, 261);
   player.addCooldownManual('pearl', 16000, 368);
+  player.setStaffModeState(StaffMod.XRAY, true);
   setTimeout(() => {
     player.removeCooldownManual('pearl');
   }, 1500);
