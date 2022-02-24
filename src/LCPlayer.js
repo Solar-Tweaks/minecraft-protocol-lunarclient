@@ -171,25 +171,24 @@ class LCPlayer {
       state,
     });
   }
+
+  setServerRule(serverRule, value) {
+    const isMinimapStatus = serverRule === 'minimapStatus';
+    if (isMinimapStatus && typeof value !== 'string')
+      throw new Error('Value for server rule MINIMAP_STATUS must be a string');
+    if (!isMinimapStatus && typeof value !== 'boolean')
+      throw new Error(`Value for server rule ${serverRule} must be a boolean`);
+    this.client.writeChannel(this.channel, {
+      id: 'server_rule',
+      rule: serverRule,
+      boolean: isMinimapStatus ? false : value,
+      integer: 0,
+      float: 0,
+      string: isMinimapStatus ? value : '',
+    });
+  }
 }
-
-const StaffMod = {
-  XRAY: 'XRAY',
-};
-
-const WaypointColor = {
-  RED: 0xff0000,
-  BLUE: 0x0000ff,
-  GREEN: 0x00ff00,
-  YELLOW: 0xffff00,
-  AQUA: 0x00ffff,
-  WHITE: 0xffffff,
-  PINK: 0xff00ff,
-  GRAY: 0x808080,
-};
 
 module.exports = {
   LCPlayer,
-  StaffMod,
-  WaypointColor,
 };

@@ -1,18 +1,25 @@
 const scheme = require('./scheme');
-const { LCPlayer, StaffMod, WaypointColor } = require('./LCPlayer');
+const { LCPlayer } = require('./LCPlayer');
+
+// Enums
+const {
+  WaypointColor,
+  StaffMod,
+  ServerRule,
+  MiniMapStatus,
+} = require('./constants');
 
 // Utility functions
 const convertHexColor = require('./utils/convertHexColor');
 
-// const util = require('util');
-// console.log(
-//   util.inspect(scheme1, { showHidden: false, depth: null, colors: true })
-// );
+// console.log(JSON.stringify(scheme, null, 2));
 
 module.exports = {
   scheme,
   LCPlayer,
-  StaffMod,
   WaypointColor,
+  StaffMod,
+  ServerRule,
+  MiniMapStatus,
   convertHexColor,
 };

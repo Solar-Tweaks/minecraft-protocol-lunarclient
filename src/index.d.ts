@@ -112,7 +112,11 @@ export declare class LCPlayer {
    * @param mod Staff mod to apply the state to
    * @param state State to apply
    */
-  setStaffModeState(mod: StaffMod, state: boolean): void;
+  setStaffModeState(mod: StaffMod | StaffModResolvable, state: boolean): void;
+  setServerRule(
+    serverRule: ServerRule | ServerRuleResolvable,
+    value: MiniMapStatus | MiniMapStatusResolvable | boolean
+  ): void;
 }
 
 /**
@@ -123,25 +127,83 @@ export declare class LCPlayer {
 export declare function convertHexColor(color: string): number;
 
 /**
- * List of all the known staff mods
- */
-export declare enum StaffMod {
-  XRAY = 'XRAY',
-}
-
-/**
  * Some colors that can be used as a waypoint color
  */
 export declare enum WaypointColor {
-  RED = 0xff0000,
-  BLUE = 0x0000ff,
-  GREEN = 0x00ff00,
-  YELLOW = 0xffff00,
-  AQUA = 0x00ffff,
-  WHITE = 0xffffff,
-  PINK = 0xff00ff,
-  GRAY = 0x808080,
+  RED,
+  BLUE,
+  GREEN,
+  YELLOW,
+  AQUA,
+  WHITE,
+  PINK,
+  GRAY,
 }
+
+/**
+ * List of all the known staff mods
+ */
+export declare enum StaffMod {
+  XRAY,
+}
+
+export type StaffModResolvable = 'XRAY';
+
+/**
+ * List of all server rules.
+ * The documentation for those rules can be found [here](https://github.com/LunarClient/BukkitAPI-NetHandler/blob/master/src/main/java/com/lunarclient/bukkitapi/nethandler/client/obj/ServerRule.java)
+ */
+export declare enum ServerRule {
+  /**
+   * Whether or not minimap is allowed.
+   * Expected value: (String) `NEUTRAL` or `FORCED_OFF`
+   */
+  MINIMAP_STATUS,
+  /**
+   * Whether or not the server will store waypoints, instead of the client
+   */
+  SERVER_HANDLES_WAYPOINTS,
+  /**
+   * A warning message will be shown when attempting to disconnect if the current
+   * game is competitive.
+   */
+  COMPETITIVE_GAME,
+  /**
+   * If this server forces shaders to be disabled
+   */
+  SHADERS_DISABLED,
+  /**
+   * If the server runs legacy enchanting (pre 1.8)
+   */
+  LEGACY_ENCHANTING,
+  /**
+   * If this server has enabled voice chat
+   */
+  VOICE_ENABLED,
+  /**
+   * Whether to revert combat mechanics to 1.7
+   */
+  LEGACY_COMBAT,
+}
+
+export type ServerRuleResolvable =
+  | 'minimapStatus'
+  | 'serverHandlesWaypoints'
+  | 'competitiveGame'
+  | 'shadersDisabled'
+  | 'legacyEnchanting'
+  | 'voiceEnabled'
+  | 'legacyCombat';
+
+/**
+ * MinimapStatus values for the server rule
+ */
+export declare enum MiniMapStatus {
+  NEUTRAL,
+  FORCED_OFF,
+}
+
+export type MiniMapStatusResolvable = 'NEUTRAL' | 'FORCED_OFF';
 
 /**
  * Waypoint object
