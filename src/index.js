@@ -1,4 +1,7 @@
 const scheme = require('./scheme');
+
+// console.log(JSON.stringify(scheme, null, 2));
+
 const { LCPlayer } = require('./LCPlayer');
 
 // Enums
@@ -11,8 +14,6 @@ const {
 
 // Utility functions
 const convertHexColor = require('./utils/convertHexColor');
-
-// console.log(JSON.stringify(scheme, null, 2));
 
 module.exports = {
   scheme,

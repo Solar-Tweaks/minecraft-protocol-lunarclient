@@ -113,6 +113,11 @@ export declare class LCPlayer {
    * @param state State to apply
    */
   setStaffModeState(mod: StaffMod | StaffModResolvable, state: boolean): void;
+  /**
+   * Set a server rule for the client.
+   * @param serverRule Server rule to set the value to
+   * @param value Value to set, usually a boolean but should be `NEUTRAL` or `FORCED_OFF` when the server rule is minimap status
+   */
   setServerRule(
     serverRule: ServerRule | ServerRuleResolvable,
     value: MiniMapStatus | MiniMapStatusResolvable | boolean
