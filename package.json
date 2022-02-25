@@ -4,7 +4,7 @@
   "description": "Custom packets used by Lunar Client for node-minecraft-protocol",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --exit",
     "test-manual": "node ./test/proxy.js"
   },
   "repository": {

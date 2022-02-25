@@ -55,6 +55,7 @@ describe('Waypoints', () => {
         '1708576179706f696e740000ff00000000002a00000045000000110001'
       );
       done();
+      server.close();
     });
     server.on('login', (client) => {
       const player = new LCPlayer(client);
@@ -86,6 +87,7 @@ describe('Waypoints', () => {
       player.addWaypoint(waypoint);
       assert.notOk(player.addWaypoint(waypoint));
       done();
+      server.close();
     });
   });
 
@@ -98,6 +100,7 @@ describe('Waypoints', () => {
       if (packetCount !== 3) return;
       assert.equal(data.data.toString('hex'), '1808576179706f696e7400');
       done();
+      server.close();
     });
     server.on('login', (client) => {
       const player = new LCPlayer(client);
@@ -120,6 +123,7 @@ describe('Waypoints', () => {
       const player = new LCPlayer(client);
       assert.notOk(player.removeWaypoint('UnknownWaypoint'));
       done();
+      server.close();
     });
   });
 
@@ -134,6 +138,7 @@ describe('Waypoints', () => {
       if (packetCount === 5) {
         assert.equal(data.data.toString('hex'), '180a576179706f696e74203200');
         done();
+        server.close();
       }
     });
     server.on('login', (client) => {
