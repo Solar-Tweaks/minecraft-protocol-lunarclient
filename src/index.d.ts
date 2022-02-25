@@ -33,6 +33,10 @@ export declare class LCPlayer {
    * Current active cooldowns (Array of ids, strings)
    */
   cooldowns: string[];
+  /**
+   * Current mod settings for the client. Key (mod id): Value (mod setting)
+   */
+  modSettings: { [key: string]: ModSetting };
 
   /**
    * Add a waypoint to the client.
@@ -112,7 +116,7 @@ export declare class LCPlayer {
    * @param mod Staff mod to apply the state to
    * @param state State to apply
    */
-  setStaffModeState(mod: StaffMod | StaffModResolvable, state: boolean): void;
+  setStaffModState(mod: StaffMod | StaffModResolvable, state: boolean): void;
   /**
    * Set a server rule for the client.
    * @param serverRule Server rule to set the value to
@@ -120,8 +124,28 @@ export declare class LCPlayer {
    */
   setServerRule(
     serverRule: ServerRule | ServerRuleResolvable,
-    value: MiniMapStatus | MiniMapStatusResolvable | boolean
+    value: boolean | MiniMapStatus | MiniMapStatusResolvable
   ): void;
+  /**
+   * Set a force state for a given mod. Forced enabled or forced disabled.
+   * Warning: You should not rely on this because the client is not handling the packet correctly
+   * and doesn't work all the time.
+   * @param mod Mod to set the setting for
+   * @param enabled Whether the mod should be force enabled or force disabled
+   * @param options
+   * @returns True if successful
+   */
+  addModSetting(
+    mod: string,
+    enabled: boolean,
+    options?: AddModSettingOptions
+  ): boolean;
+  /**
+   * Remove a forced state for the given mod.
+   * @param mod Mod to remove the forced state
+   * @returns True if successful
+   */
+  removeModSetting(mod: string): boolean;
 }
 
 /**
@@ -211,7 +235,7 @@ export declare enum MiniMapStatus {
 export type MiniMapStatusResolvable = 'NEUTRAL' | 'FORCED_OFF';
 
 /**
- * Waypoint object
+ * Waypoint object. Used when creating waypoints.
  */
 export interface Waypoint {
   /**
@@ -242,4 +266,23 @@ export interface Waypoint {
    * If the waypoint is visible
    */
   visible: boolean;
+}
+
+export interface AddModSettingOptions {
+  /**
+   * Whether or not to send the `ModSettings` packet. Useful when you need to set multiple mods without sending a tons of packets.
+   */
+  sendPacket: boolean;
+  /**
+   * I don't know what this is ¯\\\_(ツ)\_/¯
+   */
+  properties: any;
+}
+
+/**
+ * Mod Setting object. Used in the `LCPlayer#modSettings` property.
+ */
+export interface ModSetting {
+  enabled: boolean;
+  properties: { [key: string]: any };
 }

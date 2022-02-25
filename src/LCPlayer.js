@@ -8,6 +8,7 @@ class LCPlayer {
     this.waypoints = [];
     this.teammates = [];
     this.cooldowns = [];
+    this.modSettings = {};
 
     this.client.write('custom_payload', {
       channel: 'REGISTER',
@@ -164,7 +165,7 @@ class LCPlayer {
     return packet;
   }
 
-  setStaffModeState(mod, state) {
+  setStaffModState(mod, state) {
     this.client.writeChannel(this.channel, {
       id: 'staff_mods',
       mod,
@@ -185,6 +186,30 @@ class LCPlayer {
       integer: 0,
       float: 0,
       string: isMinimapStatus ? value : '',
+    });
+  }
+
+  addModSetting(mod, enabled, options) {
+    if (this.modSettings[mod]) return false;
+    this.modSettings[mod] = {
+      enabled,
+      properties: options?.properties ?? {},
+    };
+    if (options?.sendPacket ?? true) this.#sendModSettings();
+    return true;
+  }
+
+  removeModSetting(mod) {
+    if (!this.modSettings[mod]) return false;
+    delete this.modSettings[mod];
+    this.#sendModSettings();
+    return true;
+  }
+
+  #sendModSettings() {
+    this.client.writeChannel(this.channel, {
+      id: 'mod_settings',
+      settings: JSON.stringify(this.modSettings),
     });
   }
 }
