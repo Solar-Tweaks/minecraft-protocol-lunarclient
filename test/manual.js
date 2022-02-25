@@ -10,7 +10,7 @@ const proxy = new InstantConnectProxy({
   },
   clientOptions: {
     version: '1.8.9',
-    host: 'eu.loyisa.cn',
+    host: 'hypixel.net',
     // host: 'localhost',
     // port: 25568,
   },
@@ -24,15 +24,17 @@ proxy.on('incoming', (data, meta, toClient, toServer) => {
 
 proxy.on('outgoing', (data, meta, toClient, toServer) => {
   toServer.write(meta.name, data);
-  if (meta.name === 'custom_payload') console.log(data);
+  // if (meta.name === 'custom_payload') console.log(data);
 });
 
 proxy.on('start', (client) => {
   const player = new LCPlayer(client);
   // player.addCooldownManual('bow', 9000, 261);
-  // player.addCooldownManual('pearl', 16000, 368);
+  player.addCooldownManual('pearl', 16000, 368);
   // player.setStaffModeState(StaffMod.XRAY, true);
   player.setServerRule(ServerRule.LEGACY_COMBAT, true);
+  console.log(player.addModSetting('bossbar', false, { sendPacket: false }));
+  console.log(player.addModSetting('freelook', false));
   // setTimeout(() => {
   //   player.removeCooldownManual('pearl');
   // }, 1500);
