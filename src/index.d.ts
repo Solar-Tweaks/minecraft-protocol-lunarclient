@@ -5,13 +5,26 @@ import { Client } from 'minecraft-protocol';
  */
 export declare const scheme: { [key: string]: any };
 
+export type LunarChannelResolvable = 'lunarclient:pm' | 'Lunar-Client';
+
+export interface LCPlayerOptions {
+  /**
+   * LC Plugin Channel to use
+   */
+  channel?: LunarChannelResolvable;
+  /**
+   * Whether or not to use the old registration method
+   */
+  oldChannelRegistration?: boolean;
+}
+
 export declare class LCPlayer {
   /**
    * Creates a new LunarClient player.
    * @param client Node Minecraft Protocol Client
-   * @param channel LC Plugin Channel to use
+   * @param options Options for the player
    */
-  constructor(client: Client, channel?: 'lunarclient:pm' | 'Lunar-Client');
+  constructor(client: Client, options?: LCPlayerOptions);
 
   /**
    * Node Minecraft Protocol Client
@@ -20,7 +33,7 @@ export declare class LCPlayer {
   /**
    * Plugin channel used
    */
-  readonly channel: 'lunarclient:pm' | 'Lunar-Client';
+  readonly channel: LunarChannelResolvable;
   /**
    * Waypoints loaded by the client
    */
@@ -233,6 +246,8 @@ export declare enum MiniMapStatus {
 }
 
 export type MiniMapStatusResolvable = 'NEUTRAL' | 'FORCED_OFF';
+
+export enum Mod {}
 
 /**
  * Waypoint object. Used when creating waypoints.

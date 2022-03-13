@@ -1,5 +1,5 @@
 const { InstantConnectProxy } = require('prismarine-proxy');
-const { LCPlayer, ServerRule } = require('../src');
+const { LCPlayer } = require('../src');
 
 const proxy = new InstantConnectProxy({
   loginHandler: (client) => {
@@ -7,9 +7,11 @@ const proxy = new InstantConnectProxy({
   },
   serverOptions: {
     version: '1.8.9',
+    protocolValidation: false,
   },
   clientOptions: {
     version: '1.8.9',
+    protocolValidation: false,
     host: 'hypixel.net',
     // host: 'localhost',
     // port: 25568,
@@ -28,13 +30,14 @@ proxy.on('outgoing', (data, meta, toClient, toServer) => {
 });
 
 proxy.on('start', (client) => {
+  console.log(`${client.username} joined`);
   const player = new LCPlayer(client);
   // player.addCooldownManual('bow', 9000, 261);
-  player.addCooldownManual('pearl', 16000, 368);
+  // player.addCooldownManual('pearl', 16000, 368);
   // player.setStaffModeState(StaffMod.XRAY, true);
-  player.setServerRule(ServerRule.LEGACY_COMBAT, true);
-  console.log(player.addModSetting('bossbar', false, { sendPacket: false }));
-  console.log(player.addModSetting('freelook', false));
+  // player.setServerRule(ServerRule.LEGACY_COMBAT, true);
+  // console.log(player.addModSetting('bossbar', false, { sendPacket: false }));
+  // console.log(player.addModSetting('freelook', false));
   // setTimeout(() => {
   //   player.removeCooldownManual('pearl');
   // }, 1500);

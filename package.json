@@ -1,11 +1,11 @@
 {
   "name": "@solar-tweaks/minecraft-protocol-lunarclient",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Custom packets used by Lunar Client for node-minecraft-protocol",
   "main": "src/index.js",
   "scripts": {
     "test": "mocha --exit",
-    "test-manual": "node ./test/proxy.js"
+    "test-manual": "node ./test/manual.js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/Solar-Tweaks/minecraft-protocol-lunarclient#readme",
   "dependencies": {
-    "minecraft-protocol": "^1.30.0",
+    "minecraft-protocol": "^1.32.0",
     "varint": "^6.0.0"
   },
   "devDependencies": {

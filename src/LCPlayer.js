@@ -2,19 +2,26 @@ const varint = require('varint');
 const scheme = require('./scheme');
 
 class LCPlayer {
-  constructor(client, channel = 'lunarclient:pm') {
+  constructor(client, options = {}) {
     this.client = client;
-    this.channel = channel;
+    this.channel = options.channel ?? 'lunarclient:pm';
     this.waypoints = [];
     this.teammates = [];
     this.cooldowns = [];
     this.modSettings = {};
 
-    this.client.write('custom_payload', {
-      channel: 'REGISTER',
-      data: Buffer.from(this.channel),
-    });
-    this.client.registerChannel(this.channel, scheme);
+    if (options.oldChannelRegistration)
+      this.client.write('custom_payload', {
+        channel: 'REGISTER',
+        // Null character is used to separate the channels when sending multiple
+        // https://wiki.vg/Plugin_channels#minecraft:register
+        data: Buffer.from(`${this.channel}\u0000`),
+      });
+    this.client.registerChannel(
+      this.channel,
+      scheme,
+      !options.oldChannelRegistration
+    );
   }
 
   addWaypoint(waypoint) {

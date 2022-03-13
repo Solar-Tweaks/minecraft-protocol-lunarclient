@@ -12,6 +12,7 @@ module.exports = () => {
       'online-mode': false,
       version: '1.8.9',
       port,
+      validateChannelProtocol: false,
     });
   }
 
@@ -21,6 +22,7 @@ module.exports = () => {
       version: '1.8.9',
       host: 'localhost',
       port,
+      validateChannelProtocol: false,
     });
   }
 
