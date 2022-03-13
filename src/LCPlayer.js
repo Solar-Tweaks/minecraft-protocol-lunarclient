@@ -72,23 +72,23 @@ class LCPlayer {
   addTeammate(uuid) {
     if (this.teammates.find((t) => t === uuid)) return false;
     this.teammates.push(uuid);
-    this.#sendTeammateList();
+    this.sendTeammateList();
     return true;
   }
 
   removeTeammate(uuid) {
     if (!this.teammates.find((t) => t === uuid)) return false;
     this.teammates = this.teammates.filter((t) => t !== uuid);
-    this.#sendTeammateList();
+    this.sendTeammateList();
     return true;
   }
 
   removeAllTeammates() {
     this.teammates = [];
-    this.#sendTeammateList();
+    this.sendTeammateList();
   }
 
-  #sendTeammateList() {
+  sendTeammateList() {
     const players = [];
     this.teammates.forEach((uuid) => {
       players.push({
@@ -143,7 +143,7 @@ class LCPlayer {
     }, durationMs);
     this.client.write('custom_payload', {
       channel: this.channel,
-      data: this.#buildCooldownPacket(id, durationMs, iconId),
+      data: this.buildCooldownPacket(id, durationMs, iconId),
     });
     return true;
   }
@@ -153,12 +153,12 @@ class LCPlayer {
     this.cooldowns = this.cooldowns.filter((c) => c !== id);
     this.client.write('custom_payload', {
       channel: this.channel,
-      data: this.#buildCooldownPacket(id, 0, 0),
+      data: this.buildCooldownPacket(id, 0, 0),
     });
     return true;
   }
 
-  #buildCooldownPacket(id, durationMs, iconId) {
+  buildCooldownPacket(id, durationMs, iconId) {
     const packet = Buffer.alloc(14 + id.length);
     packet.write('03', 'hex');
     varint.encode(id.length, packet, 1);
@@ -202,18 +202,18 @@ class LCPlayer {
       enabled,
       properties: options?.properties ?? {},
     };
-    if (options?.sendPacket ?? true) this.#sendModSettings();
+    if (options?.sendPacket ?? true) this.sendModSettings();
     return true;
   }
 
   removeModSetting(mod) {
     if (!this.modSettings[mod]) return false;
     delete this.modSettings[mod];
-    this.#sendModSettings();
+    this.sendModSettings();
     return true;
   }
 
-  #sendModSettings() {
+  sendModSettings() {
     this.client.writeChannel(this.channel, {
       id: 'mod_settings',
       settings: JSON.stringify(this.modSettings),
