@@ -3,25 +3,24 @@ const scheme = require('./scheme');
 
 class LCPlayer {
   constructor(client, options = {}) {
-    this.client = client;
-    this.channel = options.channel ?? 'lunarclient:pm';
-    this.waypoints = [];
-    this.teammates = [];
-    this.cooldowns = [];
-    this.modSettings = {};
-
-    if (options.oldChannelRegistration)
-      this.client.write('custom_payload', {
-        channel: 'REGISTER',
-        // Null character is used to separate the channels when sending multiple
-        // https://wiki.vg/Plugin_channels#minecraft:register
-        data: Buffer.from(`${this.channel}\u0000`),
-      });
-    this.client.registerChannel(
-      this.channel,
-      scheme,
-      !options.oldChannelRegistration
-    );
+    // this.client = client;
+    // this.channel = options.channel ?? 'lunarclient:pm';
+    // this.waypoints = [];
+    // this.teammates = [];
+    // this.cooldowns = [];
+    // this.modSettings = {};
+    // if (options.oldChannelRegistration)
+    //   this.client.write('custom_payload', {
+    //     channel: 'REGISTER',
+    //     // Null character is used to separate the channels when sending multiple
+    //     // https://wiki.vg/Plugin_channels#minecraft:register
+    //     data: Buffer.from(`${this.channel}\u0000`),
+    //   });
+    // this.client.registerChannel(
+    //   this.channel,
+    //   scheme,
+    //   !options.oldChannelRegistration
+    // );
   }
 
   addWaypoint(waypoint) {
@@ -160,15 +159,16 @@ class LCPlayer {
 
   buildCooldownPacket(id, durationMs, iconId) {
     const packet = Buffer.alloc(14 + id.length);
-    packet.write('03', 'hex');
-    varint.encode(id.length, packet, 1);
-    packet.write(id, 2);
-    let durationMsHex = durationMs.toString(16);
-    for (let index = 0; index < 4 - durationMsHex.length; index++) {
-      durationMsHex = '0' + durationMsHex;
-    }
-    packet.write(durationMsHex, 8 + id.length, 'hex');
-    packet.write('0' + iconId.toString(16), 12 + id.length, 'hex');
+    let length = 0;
+    packet.writeUIntBE(3);
+    length += 1;
+    varint.encode(id.length, packet, length);
+    length += varint.encode.bytes;
+    packet.write(id, length);
+    length += id.length;
+    packet.writeBigInt64BE(BigInt(durationMs), length);
+    length += 8;
+    packet.writeInt32BE(iconId, length);
     return packet;
   }
 
