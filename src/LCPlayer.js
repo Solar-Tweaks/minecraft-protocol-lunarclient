@@ -160,7 +160,7 @@ class LCPlayer {
   buildCooldownPacket(id, durationMs, iconId) {
     const packet = Buffer.alloc(14 + id.length);
     let length = 0;
-    packet.writeUIntBE(3);
+    packet.writeUIntBE(3, 0, 1);
     length += 1;
     varint.encode(id.length, packet, length);
     length += varint.encode.bytes;
